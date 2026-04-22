@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Generant documents{% endblock %}
+
+{% block content %}
+
+<style>
+  .loading {
+    text-align: center;
+  }
+
+  .spinner {
+    margin: 2rem auto;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ddd;
+    border-top: 4px solid DarkRed;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+
+<script>
+  window.onload = function () {
+    window.location.href = "{{ next_url }}";
+  };
+</script>
+
+<div class="loading">
+  <h2>{{ message }}</h2>
+  <div class="spinner"></div>
+  <p>Això pot trigar uns minuts…</p>
+</div>
+
+{% endblock %}

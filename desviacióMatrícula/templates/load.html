@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block content %}
+<style>
+  .container {
+    background: white;
+    width: 540px;
+    margin: 0 auto;
+    padding: 2.5rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    text-align: center;
+    box-sizing: border-box;
+  }
+
+  h2 { margin-bottom: 1rem; color: DarkRed; }
+
+  .drop-zone {
+    border: 3px dashed #aaa;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    margin: 2rem 0;
+    cursor: pointer;
+  }
+
+  input[type="file"] { display: none; }
+  .file-name { margin-top: 1rem; }
+
+  .actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  button {
+    padding: 12px 28px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: DarkRed;
+    color: white;
+  }
+
+  button.secondary { background: #555; }
+</style>
+
+<div class="container">
+  <h2>{{ heading }}</h2>
+  <p>{{ description }}</p>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data">
+
+    <div class="drop-zone" id="dropZone">
+      <p>Arrossega aquí el fitxer CSV</p>
+      <span>o fes clic per seleccionar-lo</span>
+    </div>
+
+    <input type="file" name="{{ field_name }}" id="fileInput" accept=".csv">
+    <div class="file-name" id="fileName"></div>
+
+    <div class="actions">
+
+      <!-- ✅ OPCIÓ 1: PUJAR UN FITXER -->
+      <button type="submit" name="action" value="upload">
+        Carregar fitxer i continuar
+      </button>
+
+      <!-- ✅ OPCIÓ 2: REUTILITZAR -->
+      {% if has_last %}
+        <button type="submit" name="action" value="use_last" class="secondary">
+          Utilitzar l’últim fitxer carregat
+        </button>
+      {% endif %}
+
+      <!-- ✅ OPCIÓ 3: SALTAR CODIS -->
+      {% if allow_skip %}
+        <button type="submit" name="action" value="skip_codis" class="secondary">
+          Continuar sense codis compartits
+        </button>
+      {% endif %}
+
+    </div>
+  </form>
+</div>
+
+<script>
+  const dropZone = document.getElementById("dropZone");
+  const fileInput = document.getElementById("fileInput");
+  const fileName = document.getElementById("fileName");
+
+  dropZone.onclick = () => fileInput.click();
+  fileInput.onchange = () => {
+    if (fileInput.files.length)
+      fileName.textContent = "Fitxer seleccionat: " + fileInput.files[0].name;
+  };
+</script>
+{% endblock %}
+

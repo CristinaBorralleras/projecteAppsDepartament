@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Resultat{% endblock %}
+
+{% block content %}
+
+<style>
+  .ok {
+    color: DarkGreen;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .error {
+    color: DarkRed;
+    font-weight: bold;
+    text-align: center;
+  }
+</style>
+
+{% if ok %}
+  <p class="ok">{{ message }}</p>
+{% else %}
+  <p class="error">{{ message }}</p>
+{% endif %}
+
+<a href="/" class="button">
+  ⬅ Tornar al menú
+</a>
+
+
+{% endblock %}

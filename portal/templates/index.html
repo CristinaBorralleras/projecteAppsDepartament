@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+  <title>Aplicacions FCTE – Departaments</title>
+
+  <style>
+    body {
+      font-family: Verdana, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 1.5rem;
+      background: #6f6f6f;
+      color: white;
+      text-align: center;
+      font-size: 1.5rem;
+      position: relative;
+    }
+
+    .logout {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #555;
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    .logout:hover {
+      background: #444;
+    }
+
+    .container {
+      width: 800px;
+      margin: 2.5rem auto;
+    }
+
+    .app {
+      background: white;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-radius: 6px;
+    }
+
+    .app a {
+      display: block;
+      padding: 1.2rem;
+      background: #dddddd;
+      color: black;
+      text-decoration: none;
+      font-size: 1.25rem;
+      font-weight: bold;
+      border-radius: 6px;
+      text-align: center;
+    }
+
+    .app a:hover {
+      background: #cccccc;
+    }
+
+    .app p {
+      margin: 0.75rem 0 0;
+      color: #555;
+      font-size: 0.95rem;
+      line-height: 1.4;
+      text-align: center;
+    }
+
+    .app.disabled a {
+      background: #eeeeee;
+      color: #888;
+      cursor: default;
+      pointer-events: none;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Aplicacions FCTE – Departaments
+  <a href="/logout" class="logout">Tancar sessió</a>
+</h1>
+
+<div class="container">
+
+  <div class="app">
+    <a href="http://localhost:5001/" >
+      Generador de Fitxes de Dedicació
+    </a>
+    <p>
+      Generació i descàrrega de fitxes de dedicació del PDI
+      a partir d’un fitxer Excel de Dedicacions.
+    </p>
+  </div>
+
+  <div class="app">
+    <a href="http://localhost:5002/" target="_blank">
+      Llistats de PDI per titulacions.
+    </a>
+    <p>
+      Generació de llistats de PDI per Titulació 
+      a partir d’un fitxer Excel de Dedicacions.
+    </p>
+  </div>
+
+  <div class="app">
+    <a href="http://localhost:5003/" target="_blank">
+      Llistats de PDI per titulacions.
+    </a>
+    <p>
+      Generació de Full docència per l'excel de Pràctiques i TFGs 
+      a partir d’un fitxer Excel de Dedicacions.
+    </p>
+  </div>
+
+
+ <div class="app">
+    <a href="http://localhost:5004/" target="_blank">
+      Desviacions Matrícula
+    </a>
+    <p>
+      Generació de documents comparant la planificació i la desviació segons matrícula.
+      </p>
+  </div>
+
+</div>
+
+</body>
+</html>

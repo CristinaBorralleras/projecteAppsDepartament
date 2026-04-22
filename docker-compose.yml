@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  portal:
+    build: ./portal
+    env_file:
+      - ./portal/.env
+    ports:
+      - "5000:5000"
+
+  generador:
+    build: ./generadorFitxesDedicació
+    ports:
+      - "5001:5000"
+    volumes:
+      - ./generadorFitxesDedicació/uploads:/app/uploads
+      - ./generadorFitxesDedicació/output:/app/output
+
+  llistats:
+    build: ./llistatsPDIperTitulacions
+    ports:
+      - "5002:5000"
+
+  infoassig:
+    build: ./getInfoAssig_TFG-Pract
+    ports:
+      - "5003:5000"
+    volumes:
+      - ./getInfoAssig_TFG-Pract/uploads:/app/uploads
+      - ./getInfoAssig_TFG-Pract/output:/app/output
+      
+  desviaciomatricula:
+    build: ./desviacióMatrícula
+    ports:
+      - "5004:5000"
+    volumes:
+      - ./desviacióMatrícula/uploads:/app/uploads
+      - ./desviacióMatrícula/output:/app/output

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+  <meta charset="UTF-8">
+
+  <!-- El title només és per la pestanya -->
+  <title>{% block title %}Full Dedicació PDI per excel Pràct-TFG{% endblock %}</title>
+
+  <style>
+    body {
+      font-family: Verdana, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+    }
+
+    .app {
+      width: 600px;
+      margin: 2rem auto;
+    }
+
+    /* Capçalera visual fixa */
+    .header {
+	  background: #9a9a9a;
+	  padding: 1.4rem;          
+	  border-radius: 6px;
+	  margin-bottom: 2rem;
+	  text-align: center;
+	  font-weight: bold;
+	  font-size: 1.4rem;   
+	  color: white;   
+	  text-shadow: 2px 2px 4px black;
+	}
+	
+
+    .content {
+      background: white;
+      padding: 2rem;
+      border-radius: 6px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    a.button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 10px 20px;
+      background-color: #f2f2f2;
+      color: black;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+
+    a.button:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="app">
+
+    <!-- AQUÍ VA LA CAPÇALERA VISUAL -->
+    <div class="header">
+      Full Dedicacions PDI per excel Pràct-TFG 
+    </div>
+
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+
+  </div>
+
+</body>
+</html>
+

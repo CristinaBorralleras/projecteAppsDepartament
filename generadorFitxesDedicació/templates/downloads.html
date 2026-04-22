@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}Documents generats{% endblock %}
+
+{% block content %}
+
+<style>
+  h3 {
+    margin-top: 2rem;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    text-decoration: none;
+    color: DarkBlue;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  /* Botó baixar (discret, com abans) */
+  .download {
+    margin-left: 1.5rem;
+    margin-top: 0.2rem;
+  }
+
+  a.button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 8px 12px;
+    background: #eee;
+    border-radius: 4px;
+    color: black;
+  }
+
+  a.download-btn {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 0.8rem;
+    background: #f2f2f2;
+    border: 1px solid #bbb;
+    border-radius: 4px;
+    color: black;
+    text-decoration: none;
+  }
+
+  a.download-btn:hover {
+    background: #e2e2e2;
+    text-decoration: none;
+  }
+
+  hr {
+    margin-top: 2rem;
+  }
+</style>
+
+<h2>{{ message }}</h2>
+
+{% if single %}
+  {# ===== CAS 1 SOL PDI ===== #}
+  {% set carpeta = carpetes[0] %}
+  <ul>
+    {% for pdf in llistar_pdfs(carpeta) %}
+      {% if pdf.startswith(pdi_nom + "-") %}
+        <li>
+          📄
+          <a href="/download/{{ carpeta }}/{{ pdf }}" target="_blank">
+            {{ pdf }}
+          </a>
+
+          <div class="download">
+            <a class="download-btn"
+               href="/download/{{ carpeta }}/{{ pdf }}?dl=1">
+              Descarregar
+            </a>
+          </div>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
+{% else %}
+  {# ===== CAS GENERACIONS GLOBALS ===== #}
+  {% for carpeta in carpetes %}
+    <h3>{{ carpeta }}</h3>
+    <ul>
+      {% for pdf in llistar_pdfs(carpeta) %}
+        <li>
+          📄
+          <a href="/download/{{ carpeta }}/{{ pdf }}" target="_blank">
+            {{ pdf }}
+          </a>
+
+          <div class="download">
+            <a class="download-btn"
+               href="/download/{{ carpeta }}/{{ pdf }}?dl=1">
+              Descarregar
+            </a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+
+  <hr>
+
+  <a class="button"
+     href="/download/zip{% for c in carpetes %}?carpeta={{ c }}{% if not loop.last %}&amp;carpeta={% endif %}{% endfor %}">
+    📦 Descarregar-ho tot en un ZIP
+  </a>
+{% endif %}
+
+<br><br>
+
+<a class="button" href="/">
+  ⬅ Tornar al menú
+</a>
+
+{% endblock %}
+``

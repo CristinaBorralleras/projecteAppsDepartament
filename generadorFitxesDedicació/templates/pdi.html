@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Generar un PDI{% endblock %}
+
+{% block content %}
+
+<style>
+  h2 {
+    color: DarkRed;
+  }
+
+  label {
+    font-weight: bold;
+  }
+
+  select, input {
+    width: 100%;
+    padding: 6px;
+    margin-bottom: 1rem;
+  }
+
+  button {
+    padding: 8px 16px;
+  }
+
+  .info {
+    font-size: small;
+    color: #555;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<h2>Generar document per un PDI</h2>
+
+<form method="post">
+
+  <label for="pdi_select">Selecciona un PDI:</label>
+  <select name="pdi_select" id="pdi_select">
+    <option value="">-- Cap seleccionat --</option>
+    {% for pdi in pdis %}
+      <option value="{{ pdi }}">{{ pdi }}</option>
+    {% endfor %}
+  </select>
+
+  <div class="info">
+    Si selecciones un PDI aquí, té prioritat.
+  </div>
+
+  <hr>
+
+  <label for="pdi_text">O escriu el nom del PDI:</label>
+  <input type="text" name="pdi_text" id="pdi_text">
+
+  <button type="submit">Generar document</button>
+</form>
+
+<a href="/" class="button">
+  ⬅ Tornar al menú
+</a>
+
+
+{% endblock %}

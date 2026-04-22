@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+{% block title %}Carregar fitxer Excel{% endblock %}
+
+{% block content %}
+
+<style>
+  .container {
+	  background: white;
+	  width: 540px;         
+	  margin: 0 auto;
+	  padding: 2.5rem;
+	  border-radius: 6px;
+	  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+	  text-align: center;
+	  box-sizing: border-box;
+	}
+
+  h2 {
+    margin-bottom: 1rem;
+    color: DarkRed;
+  }
+
+  .drop-zone {
+    border: 3px dashed #aaa;
+    border-radius: 12px;
+    padding: 3rem 2rem;
+    margin: 2rem 0;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .drop-zone.dragover {
+    background: #f0f0f0;
+    border-color: DarkRed;
+  }
+
+  .drop-zone p {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  .drop-zone span {
+    display: block;
+    margin-top: 0.6rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .file-name {
+    margin-top: 1rem;
+    font-size: 0.95rem;
+    color: #333;
+  }
+
+  .error {
+    color: DarkRed;
+    margin-bottom: 1rem;
+    font-weight: bold;
+  }
+
+  .actions {
+    margin-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  button {
+    padding: 12px 28px;
+    font-size: 1rem;
+    background: DarkRed;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  button.secondary {
+    background: #555;
+  }
+
+  button:hover {
+    opacity: 0.8;
+  }
+</style>
+
+<div class="container">
+
+  <h2>Carregar fitxer Excel</h2>
+  <p>Selecciona o arrossega el fitxer amb el qual vols treballar</p>
+
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" enctype="multipart/form-data">
+
+    <div class="drop-zone" id="dropZone">
+      <p>Arrossega aquí el fitxer Excel</p>
+      <span>o fes clic per seleccionar-lo</span>
+    </div>
+
+    <input type="file" name="excel" id="fileInput" accept=".xlsx">
+
+    <div class="file-name" id="fileName"></div>
+
+    <div class="actions">
+      <button type="submit">
+        Carregar i continuar
+      </button>
+
+      {% if has_last %}
+        <button type="submit"
+                name="use_last"
+                value="1"
+                class="secondary">
+          Utilitzar l’últim fitxer carregat
+        </button>
+      {% endif %}
+    </div>
+
+  </form>
+
+</div>
+
+<script>
+  const dropZone = document.getElementById("dropZone");
+  const fileInput = document.getElementById("fileInput");
+  const fileName = document.getElementById("fileName");
+
+  dropZone.addEventListener("click", () => fileInput.click());
+
+  dropZone.addEventListener("dragover", e => {
+    e.preventDefault();
+    dropZone.classList.add("dragover");
+  });
+
+  dropZone.addEventListener("dragleave", () => {
+    dropZone.classList.remove("dragover");
+  });
+
+  dropZone.addEventListener("drop", e => {
+    e.preventDefault();
+    dropZone.classList.remove("dragover");
+    fileInput.files = e.dataTransfer.files;
+    showFileName();
+  });
+
+  fileInput.addEventListener("change", showFileName);
+
+  function showFileName() {
+    if (fileInput.files.length > 0) {
+      fileName.textContent =
+        "Fitxer seleccionat: " + fileInput.files[0].name;
+    }
+  }
+</script>
+
+{% endblock %}

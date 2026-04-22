@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+
+{% block title %}Resultats{% endblock %}
+
+{% block content %}
+<style>
+  h2 {
+    color: DarkRed;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    text-align: left;
+  }
+
+  th {
+    background: #f0f0f0;
+  }
+
+  td.actions {
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  a.file-link {
+    color: DarkRed;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  a.file-link:hover {
+    text-decoration: underline;
+  }
+
+  a.button {
+    display: inline-block;
+    padding: 6px 14px;
+    background: DarkRed;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-left: 0.4rem;
+    font-size: 0.85rem;
+  }
+
+  a.button.secondary {
+    background: #555;
+  }
+
+  .actions-global {
+    text-align: center;
+    margin-top: 2rem;
+  }
+</style>
+
+<h2>Fitxers generats</h2>
+	{% if error %}
+	    <div class="error">{{ error }}</div>
+	{% endif %}
+
+<table>
+  <thead>
+    <tr>
+      <th>Fitxer</th>
+      <th>Accions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for f in files %}
+    <tr>
+		<td>
+		  <a class="file-link" href="{{ url_for('preview_file', filename=f) }}">
+			{{ f }}
+		  </a>
+		</td>
+		<td class="actions">
+		  <a class="button" href="{{ url_for('download_file', filename=f) }}">
+			Descarregar
+		  </a>
+		</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="actions-global">
+  <a href="{{ url_for('download_zip') }}" class="button">
+    Descarregar tots (ZIP)
+  </a>
+
+  <a href="{{ url_for('load_codis') }}" class="button secondary">
+    Tornar
+  </a>
+</div>
+
+{% endblock %}
+

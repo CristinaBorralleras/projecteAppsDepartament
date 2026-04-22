@@ -1,0 +1,163 @@
+{% extends "base.html" %}
+
+{% block title %}Opcions de generació{% endblock %}
+
+{% block content %}
+
+<style>
+  .container {
+    width: 540px;
+    margin: 0 auto;
+    text-align: left;
+  }
+
+  h2 {
+    color: DarkRed;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .options label {
+    display: block;
+    margin-bottom: 0.8rem;
+    font-size: 1.05rem;
+    cursor: pointer;
+  }
+
+  .block {
+    margin-bottom: 2rem;
+  }
+
+  .actions {
+    text-align: center;
+    margin-top: 2rem;
+  }
+
+ 
+
+  button, 
+  a.button {
+    display: inline-block;
+    padding: 12px 24px;
+    background: DarkRed;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    margin: 0 0.5rem;
+  }
+
+  button{
+  	font-size: 1.2rem;
+  }
+
+  button.secondary,
+  a.secondary {
+    background: #555;
+  }
+  
+  button:hover {
+    opacity: 0.8;
+  }
+   
+</style>
+
+<div class="container">
+
+  <h2>Opcions per a la generació de llistats</h2>
+
+  <form method="post" action="/generar">
+
+    <input type="hidden" name="excel_path" value="{{ excel_path }}">
+
+    <!-- Bloc opcions -->
+    <div class="options block">
+      <label>
+        <input type="checkbox" name="tfg">
+        Incloure TFG / M
+      </label>
+
+      <label>
+        <input type="checkbox" name="pract">
+        Incloure Pràctiques
+      </label>
+    </div>
+
+    <!-- Bloc titulacions -->
+    <div class="options block">
+      <label><strong>Titulacions:</strong></label>
+
+      <label>
+        <input
+          type="checkbox"
+          id="chk_totes"
+          name="titulacions"
+          value="__totes__"
+          checked
+        >
+        TOTES les titulacions
+      </label>
+
+      {% for t in titulacions %}
+        <label>
+          <input
+            type="checkbox"
+            class="chk_titulacio"
+            name="titulacions"
+            value="{{ t }}"
+            checked
+          >
+          {{ t }}
+        </label>
+      {% endfor %}
+    </div>
+
+
+    <div class="actions">
+	  <button type="submit" name="action" value="view" class="secondary">
+		Visualitzar
+	  </button>
+
+	  <button type="submit" name="action" value="download" >
+		Descarregar Excel
+	  </button>
+
+	  <br><br>
+
+	 <a href="/" class="button secondary">
+		Tornar
+	</a>
+	</div>
+
+  </form>
+
+</div>
+
+<script>
+  const chkTotes = document.getElementById("chk_totes");
+  const chkTitulacions = document.querySelectorAll(".chk_titulacio");
+
+  // Quan es clica "TOTES"
+  chkTotes.addEventListener("change", () => {
+    chkTitulacions.forEach(chk => {
+      chk.checked = chkTotes.checked;
+    });
+  });
+
+  // Quan es clica una titulació concreta
+  chkTitulacions.forEach(chk => {
+    chk.addEventListener("change", () => {
+      if (!chk.checked) {
+        // Si se'n desmarca una, traiem "TOTES"
+        chkTotes.checked = false;
+      } else {
+        // Si totes les titulacions estan marcades, marquem "TOTES"
+        const totesMarcades = Array.from(chkTitulacions)
+          .every(c => c.checked);
+        chkTotes.checked = totesMarcades;
+      }
+    });
+  });
+</script>
+
+{% endblock %}
