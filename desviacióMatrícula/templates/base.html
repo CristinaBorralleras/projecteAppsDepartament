@@ -13,24 +13,49 @@
       margin: 0;
     }
 
+    /* ✅ CAPÇALERA PRINCIPAL COMUNA (IGUAL QUE PORTAL) */
+    h1.main-header {
+      margin: 0;
+      padding: 1.5rem;
+      background: #6f6f6f;
+      color: white;
+      text-align: center;
+      font-size: 1.5rem;
+      position: relative;
+    }
+
+     h1.main-header a.back-menu {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #555;
+      color: white;
+      padding: 0.5rem 1rem;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+
+    h1.main-header a.back-menu:hover {
+      background: #444;
+    }
+
     .app {
       width: 600px;
       margin: 2rem auto;
     }
 
-    /* Capçalera visual fixa */
+    /* ✅ CAPÇALERA ESPECÍFICA DE L'APP (SENSE CANVIS) */
     .header {
-	  background: #9a9a9a;
-	  padding: 1.4rem;          
-	  border-radius: 6px;
-	  margin-bottom: 2rem;
-	  text-align: center;
-	  font-weight: bold;
-	  font-size: 1.4rem;   
-	  color: white;   
-	  text-shadow: 2px 2px 4px black;
-	}
-	
+      background: #9a9a9a;
+      padding: 1.4rem;
+      border-radius: 6px;
+      margin-bottom: 2rem;
+      text-align: center;
+      font-weight: bold;
+      font-size: 1.4rem;
+      color: white;
+      text-shadow: 2px 2px 4px black;
+    }
 
     .content {
       background: white;
@@ -57,9 +82,15 @@
 
 <body>
 
+  <!-- ✅ CAPÇALERA PRINCIPAL COMUNA -->
+  <h1 class="main-header">
+    Aplicacions FCTE – Departaments
+    <a href="http://localhost:5000" class="back-menu">Tornar al menú</a>
+  </h1>
+
   <div class="app">
 
-    <!-- AQUÍ VA LA CAPÇALERA VISUAL -->
+    <!-- ✅ CAPÇALERA ESPECÍFICA DE L'APP -->
     <div class="header">
       Desviacions Matrícula
     </div>
@@ -72,4 +103,3 @@
 
 </body>
 </html>
-
